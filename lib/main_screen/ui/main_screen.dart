@@ -25,17 +25,34 @@ class AyahShareScreenState extends State<AyahShareScreen> {
   double translationFontSize = 16;
   Color textColor = Colors.white;
   List<Color> gradientColors = [Colors.blue, Colors.purple];
+  List<Translation> translations = [];
+  String selectedTranslation = 'en.sahih';
 
   @override
   void initState() {
     super.initState();
+    fetchTranslations();
     fetchAyah();
     fetchSurahAyahCount();
   }
 
+  void fetchTranslations() async {
+    try {
+      final result = await _quranService.fetchTranslations();
+      setState(() {
+        translations = result;
+      });
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error fetching translations: $error');
+      }
+    }
+  }
+
   void fetchAyah() async {
     try {
-      final result = await _quranService.fetchAyah(surah, ayah);
+      final result =
+          await _quranService.fetchAyah(surah, ayah, selectedTranslation);
       setState(() {
         arabicText = result['data'][0]['text'];
         translationText = result['data'][1]['text'];
@@ -139,6 +156,38 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                   ),
                 ),
               ],
+            ),
+
+            // Translation selection
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      value: selectedTranslation,
+                      items: translations.map((translation) {
+                        return DropdownMenuItem(
+                          value: translation.identifier,
+                          child: Text(
+                            '${translation.language.toUpperCase()} - ${translation.englishName}',
+                            overflow: TextOverflow
+                                .ellipsis, // This ensures text does not overflow
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedTranslation = value!;
+                          fetchAyah();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             // Font Size and Color options
