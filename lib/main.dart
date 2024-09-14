@@ -15,7 +15,25 @@ class AyahSaverApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ayah Saver',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      // theme: ThemeData(
+      //   useMaterial3: true,
+      //   brightness: Brightness.light,
+      // ),
+      // darkTheme: ThemeData(
+      //   useMaterial3: true,
+      //   brightness: Brightness.dark,
+      //   scaffoldBackgroundColor: Colors.black,
+      //   appBarTheme: const AppBarTheme(
+      //     backgroundColor: Colors.black,
+      //     foregroundColor: Colors.white,
+      //     systemOverlayStyle: SystemUiOverlayStyle.light,
+      //     elevation: 0,
+      //     scrolledUnderElevation: 0,
+      //   ),
+      //   primaryColor: Colors.blue,
+      // ),
+      // themeMode: ThemeMode.system,
+      // theme ke baare me dekhna he
       home: const AyahSaverScreen(),
     );
   }
@@ -299,9 +317,9 @@ class AyahSaverScreenState extends State<AyahSaverScreen> {
 
             const SizedBox(height: 20),
             // Share button
-            const OutlinedButton(
-              onPressed: null,
-              child: Text('Share Image'),
+            OutlinedButton(
+              onPressed: () {},
+              child: const Text('Share Image'),
             ),
           ],
         ),
