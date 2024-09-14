@@ -1,7 +1,7 @@
+import 'package:ayahShare/services/quran_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:myappp/services/quran_services.dart';
 import 'package:screenshot/screenshot.dart';
 
 void main() {
