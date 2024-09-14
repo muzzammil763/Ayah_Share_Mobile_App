@@ -85,7 +85,15 @@ class AyahSaverScreenState extends State<AyahSaverScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Ayah Saver')),
+      appBar: AppBar(
+        surfaceTintColor: Colors.blueAccent,
+        title: const Text(
+          'Ayah Saver',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -94,53 +102,69 @@ class AyahSaverScreenState extends State<AyahSaverScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                DropdownButton<int>(
-                  value: surah,
-                  items: List.generate(
-                    114,
-                    (index) => DropdownMenuItem(
-                      value: index + 1,
-                      child: Text('Surah ${index + 1}'),
+                Center(
+                  child: DropdownButton<int>(
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_sharp,
+                      size: 28,
                     ),
+                    underline: const SizedBox(),
+                    value: surah,
+                    items: List.generate(
+                      114,
+                      (index) => DropdownMenuItem(
+                        value: index + 1,
+                        child: Text('Surah ${index + 1}'),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        surah = value!;
+                        ayah = 1; // Reset ayah when surah changes
+                        fetchSurahAyahCount(); // Fetch total ayahs in the new surah
+                        fetchAyah();
+                      });
+                    },
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      surah = value!;
-                      ayah = 1; // Reset ayah when surah changes
-                      fetchSurahAyahCount(); // Fetch total ayahs in the new surah
-                      fetchAyah();
-                    });
-                  },
                 ),
                 const SizedBox(width: 20),
-                DropdownButton<int>(
-                  value: ayah,
-                  items: List.generate(
-                    totalAyahs,
-                    (index) => DropdownMenuItem(
-                      value: index + 1,
-                      child: Text('Ayah ${index + 1}'),
+                Center(
+                  child: DropdownButton<int>(
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_sharp,
+                      size: 28,
                     ),
+                    underline: const SizedBox(),
+                    value: ayah,
+                    items: List.generate(
+                      totalAyahs,
+                      (index) => DropdownMenuItem(
+                        value: index + 1,
+                        child: Text('Ayah ${index + 1}'),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        ayah = value!;
+                        fetchAyah();
+                      });
+                    },
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      ayah = value!;
-                      fetchAyah();
-                    });
-                  },
                 ),
               ],
             ),
 
             // Font Size and Color options
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             const Text(
-              'Font Size',
+              'Ayah Font Size',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 8),
             Slider(
+              activeColor: Colors.blueAccent.shade700,
               value: fontSize,
               min: 10,
               max: 40,
@@ -150,9 +174,16 @@ class AyahSaverScreenState extends State<AyahSaverScreen> {
                 });
               },
             ),
-            const Text('Translation Font Size',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            const Text(
+              'Translation Font Size',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
             Slider(
+              activeColor: Colors.blueAccent.shade700,
               value: translationFontSize,
               min: 10,
               max: 30,
@@ -162,8 +193,14 @@ class AyahSaverScreenState extends State<AyahSaverScreen> {
                 });
               },
             ),
-            const Text('Text Color',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            const Text(
+              'Text Color',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
             OutlinedButton(
               onPressed: () {
                 showDialog(
@@ -174,17 +211,23 @@ class AyahSaverScreenState extends State<AyahSaverScreen> {
                       child: ColorPicker(
                         pickerColor: textColor,
                         onColorChanged: (color) {
-                          setState(() {
-                            textColor = color;
-                          });
+                          setState(
+                            () {
+                              textColor = color;
+                            },
+                          );
                         },
                       ),
                     ),
                   ),
                 );
               },
-              child: const Text(
+              child: Text(
                 'Select Text Color',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.blueAccent.shade700,
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -203,7 +246,13 @@ class AyahSaverScreenState extends State<AyahSaverScreen> {
                   ),
                 );
               },
-              child: const Text('Select Gradient Colors'),
+              child: Text(
+                'Select Gradient Colors',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.blueAccent.shade700,
+                ),
+              ),
             ),
 
             const SizedBox(height: 20),
