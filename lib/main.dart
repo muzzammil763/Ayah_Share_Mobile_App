@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:myappp/services/quran_services.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -26,10 +25,10 @@ class AyahSaverScreen extends StatefulWidget {
   const AyahSaverScreen({super.key});
 
   @override
-  _AyahSaverScreenState createState() => _AyahSaverScreenState();
+  AyahSaverScreenState createState() => AyahSaverScreenState();
 }
 
-class _AyahSaverScreenState extends State<AyahSaverScreen> {
+class AyahSaverScreenState extends State<AyahSaverScreen> {
   final QuranService _quranService = QuranService();
   ScreenshotController screenshotController = ScreenshotController();
 
@@ -73,23 +72,6 @@ class _AyahSaverScreenState extends State<AyahSaverScreen> {
     } catch (error) {
       if (kDebugMode) {
         print('Error fetching surah details: $error');
-      }
-    }
-  }
-
-  void captureAndSaveScreenshot() async {
-    final Uint8List? image = await screenshotController.capture();
-    if (image != null) {
-      final result = await ImageGallerySaver.saveImage(image,
-          quality: 80, name: "ayah_screenshot");
-      if (result['isSuccess']) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Image saved to gallery')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to save image')),
-        );
       }
     }
   }
@@ -152,8 +134,12 @@ class _AyahSaverScreenState extends State<AyahSaverScreen> {
 
             // Font Size and Color options
             const SizedBox(height: 10),
-            const Text('Font Size',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Font Size',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Slider(
               value: fontSize,
               min: 10,
@@ -178,7 +164,7 @@ class _AyahSaverScreenState extends State<AyahSaverScreen> {
             ),
             const Text('Text Color',
                 style: TextStyle(fontWeight: FontWeight.bold)),
-            ElevatedButton(
+            OutlinedButton(
               onPressed: () {
                 showDialog(
                   context: context,
@@ -197,12 +183,14 @@ class _AyahSaverScreenState extends State<AyahSaverScreen> {
                   ),
                 );
               },
-              child: const Text('Select Text Color'),
+              child: const Text(
+                'Select Text Color',
+              ),
             ),
             const SizedBox(height: 10),
 
             // Gradient color picker
-            ElevatedButton(
+            OutlinedButton(
               onPressed: () {
                 showDialog(
                   context: context,
@@ -223,43 +211,48 @@ class _AyahSaverScreenState extends State<AyahSaverScreen> {
             // Screenshot area
             Screenshot(
               controller: screenshotController,
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: gradientColors,
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: gradientColors,
+                    ),
                   ),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      arabicText,
-                      style: TextStyle(
-                        fontSize: fontSize,
-                        color: textColor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        arabicText,
+                        style: TextStyle(
+                          fontSize: fontSize,
+                          color: textColor,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      translationText,
-                      style: TextStyle(
-                        fontSize: translationFontSize,
-                        color: textColor,
+                      const SizedBox(height: 10),
+                      Text(
+                        translationText,
+                        style: TextStyle(
+                          fontSize: translationFontSize,
+                          color: textColor,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
 
             const SizedBox(height: 20),
-
-            // Download button
-            ElevatedButton(
-              onPressed: captureAndSaveScreenshot,
-              child: const Text('Download Image'),
+            // Share button
+            const OutlinedButton(
+              onPressed: null,
+              child: Text('Share Image'),
             ),
           ],
         ),
@@ -276,11 +269,11 @@ class MultipleChoiceGradientPicker extends StatefulWidget {
       {super.key, required this.currentColors, required this.onConfirm});
 
   @override
-  _MultipleChoiceGradientPickerState createState() =>
-      _MultipleChoiceGradientPickerState();
+  MultipleChoiceGradientPickerState createState() =>
+      MultipleChoiceGradientPickerState();
 }
 
-class _MultipleChoiceGradientPickerState
+class MultipleChoiceGradientPickerState
     extends State<MultipleChoiceGradientPicker> {
   List<Color> colors = [];
 
