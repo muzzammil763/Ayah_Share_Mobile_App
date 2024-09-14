@@ -254,6 +254,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             OutlinedButton(
               onPressed: () {
                 showDialog(
+                  barrierColor: Colors.transparent,
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Pick Gradient Colors'),
@@ -352,36 +353,38 @@ class MultipleChoiceGradientPickerState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text('Pick First Gradient Color'),
-        ColorPicker(
-          pickerColor: colors[0],
-          onColorChanged: (color) {
-            setState(() {
-              colors[0] = color;
-            });
-          },
-        ),
-        const SizedBox(height: 20),
-        const Text('Pick Second Gradient Color'),
-        ColorPicker(
-          pickerColor: colors[1],
-          onColorChanged: (color) {
-            setState(() {
-              colors[1] = color;
-            });
-          },
-        ),
-        ElevatedButton(
-          onPressed: () {
-            widget.onConfirm(colors);
-            Navigator.pop(context);
-          },
-          child: const Text('Confirm'),
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Pick First Gradient Color'),
+          ColorPicker(
+            pickerColor: colors[0],
+            onColorChanged: (color) {
+              setState(() {
+                colors[0] = color;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          const Text('Pick Second Gradient Color'),
+          ColorPicker(
+            pickerColor: colors[1],
+            onColorChanged: (color) {
+              setState(() {
+                colors[1] = color;
+              });
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              widget.onConfirm(colors);
+              Navigator.pop(context);
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
     );
   }
 }
