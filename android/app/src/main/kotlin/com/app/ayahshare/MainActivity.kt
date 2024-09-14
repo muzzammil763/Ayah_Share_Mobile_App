@@ -1,4 +1,4 @@
-package com.example.myappp
+package com.app.ayahshare
 
 import io.flutter.embedding.android.FlutterActivity
 
