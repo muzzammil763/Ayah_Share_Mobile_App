@@ -185,11 +185,17 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             OutlinedButton(
               onPressed: () {
                 showDialog(
+                  barrierColor: Colors.transparent,
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Pick Text Color'),
+                    backgroundColor: Colors.transparent,
+                    contentPadding: EdgeInsets.zero,
                     content: SingleChildScrollView(
                       child: ColorPicker(
+                        displayThumbColor: true,
+                        enableAlpha: false,
+                        showLabel: false,
+                        pickerAreaHeightPercent: 0.5,
                         pickerColor: textColor,
                         onColorChanged: (color) {
                           setState(
@@ -217,10 +223,12 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             OutlinedButton(
               onPressed: () {
                 showDialog(
+                  useRootNavigator: true,
                   barrierColor: Colors.transparent,
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Pick Gradient Colors'),
+                    backgroundColor: Colors.transparent,
+                    contentPadding: EdgeInsets.zero,
                     content: MultipleChoiceGradientPicker(
                       currentColors: gradientColors,
                       onColorChanged: (colors) => changeGradientColors(colors),

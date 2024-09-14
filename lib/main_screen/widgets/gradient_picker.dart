@@ -32,8 +32,11 @@ class MultipleChoiceGradientPickerState
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Pick First Gradient Color'),
           ColorPicker(
+            displayThumbColor: true,
+            enableAlpha: false,
+            showLabel: false,
+            pickerAreaHeightPercent: 0.5,
             pickerColor: colors[0],
             onColorChanged: (color) {
               setState(() {
@@ -42,9 +45,11 @@ class MultipleChoiceGradientPickerState
               widget.onColorChanged(colors);
             },
           ),
-          const SizedBox(height: 20),
-          const Text('Pick Second Gradient Color'),
           ColorPicker(
+            displayThumbColor: true,
+            enableAlpha: false,
+            showLabel: false,
+            pickerAreaHeightPercent: 0.5,
             pickerColor: colors[1],
             onColorChanged: (color) {
               setState(
