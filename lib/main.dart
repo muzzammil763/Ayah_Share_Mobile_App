@@ -15,25 +15,6 @@ class AyahShareApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'AyahShare',
-      // theme: ThemeData(
-      //   useMaterial3: true,
-      //   brightness: Brightness.light,
-      // ),
-      // darkTheme: ThemeData(
-      //   useMaterial3: true,
-      //   brightness: Brightness.dark,
-      //   scaffoldBackgroundColor: Colors.black,
-      //   appBarTheme: const AppBarTheme(
-      //     backgroundColor: Colors.black,
-      //     foregroundColor: Colors.white,
-      //     systemOverlayStyle: SystemUiOverlayStyle.light,
-      //     elevation: 0,
-      //     scrolledUnderElevation: 0,
-      //   ),
-      //   primaryColor: Colors.blue,
-      // ),
-      // themeMode: ThemeMode.system,
-      // theme ke baare me dekhna he
       home: AyahShareScreen(),
     );
   }
@@ -96,7 +77,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
 
   void changeGradientColors(List<Color> colors) {
     setState(() {
-      gradientColors = colors;
+      gradientColors = List.from(colors); // Ensure a new list is assigned
     });
   }
 
@@ -260,7 +241,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                     title: const Text('Pick Gradient Colors'),
                     content: MultipleChoiceGradientPicker(
                       currentColors: gradientColors,
-                      onConfirm: (colors) => changeGradientColors(colors),
+                      onColorChanged: (colors) => changeGradientColors(colors),
                     ),
                   ),
                 );
@@ -331,10 +312,13 @@ class AyahShareScreenState extends State<AyahShareScreen> {
 
 class MultipleChoiceGradientPicker extends StatefulWidget {
   final List<Color> currentColors;
-  final ValueChanged<List<Color>> onConfirm;
+  final ValueChanged<List<Color>> onColorChanged;
 
-  const MultipleChoiceGradientPicker(
-      {super.key, required this.currentColors, required this.onConfirm});
+  const MultipleChoiceGradientPicker({
+    super.key,
+    required this.currentColors,
+    required this.onColorChanged,
+  });
 
   @override
   MultipleChoiceGradientPickerState createState() =>
@@ -343,12 +327,13 @@ class MultipleChoiceGradientPicker extends StatefulWidget {
 
 class MultipleChoiceGradientPickerState
     extends State<MultipleChoiceGradientPicker> {
-  List<Color> colors = [];
+  late List<Color> colors;
 
   @override
   void initState() {
     super.initState();
-    colors = widget.currentColors;
+    colors =
+        List.from(widget.currentColors); // Ensure a copy of the list is used
   }
 
   @override
@@ -364,6 +349,7 @@ class MultipleChoiceGradientPickerState
               setState(() {
                 colors[0] = color;
               });
+              widget.onColorChanged(colors);
             },
           ),
           const SizedBox(height: 20),
@@ -374,14 +360,8 @@ class MultipleChoiceGradientPickerState
               setState(() {
                 colors[1] = color;
               });
+              widget.onColorChanged(colors);
             },
-          ),
-          ElevatedButton(
-            onPressed: () {
-              widget.onConfirm(colors);
-              Navigator.pop(context);
-            },
-            child: const Text('Confirm'),
           ),
         ],
       ),
