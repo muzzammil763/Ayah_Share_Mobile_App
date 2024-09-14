@@ -5,16 +5,16 @@ import 'package:myappp/services/quran_services.dart';
 import 'package:screenshot/screenshot.dart';
 
 void main() {
-  runApp(const AyahSaverApp());
+  runApp(const AyahShareApp());
 }
 
-class AyahSaverApp extends StatelessWidget {
-  const AyahSaverApp({super.key});
+class AyahShareApp extends StatelessWidget {
+  const AyahShareApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ayah Saver',
+    return const MaterialApp(
+      title: 'AyahShare',
       // theme: ThemeData(
       //   useMaterial3: true,
       //   brightness: Brightness.light,
@@ -34,19 +34,19 @@ class AyahSaverApp extends StatelessWidget {
       // ),
       // themeMode: ThemeMode.system,
       // theme ke baare me dekhna he
-      home: const AyahSaverScreen(),
+      home: AyahShareScreen(),
     );
   }
 }
 
-class AyahSaverScreen extends StatefulWidget {
-  const AyahSaverScreen({super.key});
+class AyahShareScreen extends StatefulWidget {
+  const AyahShareScreen({super.key});
 
   @override
-  AyahSaverScreenState createState() => AyahSaverScreenState();
+  AyahShareScreenState createState() => AyahShareScreenState();
 }
 
-class AyahSaverScreenState extends State<AyahSaverScreen> {
+class AyahShareScreenState extends State<AyahShareScreen> {
   final QuranService _quranService = QuranService();
   ScreenshotController screenshotController = ScreenshotController();
 
@@ -106,7 +106,7 @@ class AyahSaverScreenState extends State<AyahSaverScreen> {
       appBar: AppBar(
         surfaceTintColor: Colors.blueAccent,
         title: const Text(
-          'Ayah Saver',
+          'AyahShare',
           style: TextStyle(
             fontWeight: FontWeight.w500,
           ),
