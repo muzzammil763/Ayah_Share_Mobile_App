@@ -161,11 +161,13 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             // Translation selection
             const SizedBox(height: 16),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 children: [
                   Expanded(
                     child: DropdownButton<String>(
+                      underline: const SizedBox(),
+                      icon: const Icon(Icons.keyboard_arrow_down_sharp),
                       isExpanded: true,
                       value: selectedTranslation,
                       items: translations.map((translation) {
