@@ -65,17 +65,10 @@ class AyahShareScreenState extends State<AyahShareScreen> {
     }
   }
 
-  void fetchSurahAyahCount() async {
-    try {
-      final count = await _quranService.fetchSurahAyahCount(surah);
-      setState(() {
-        totalAyahs = count;
-      });
-    } catch (error) {
-      if (kDebugMode) {
-        print('Error fetching surah details: $error');
-      }
-    }
+  void fetchSurahAyahCount() {
+    setState(() {
+      totalAyahs = surahList.firstWhere((s) => s.number == surah).numberOfAyahs;
+    });
   }
 
   void changeGradientColors(List<Color> colors) {
