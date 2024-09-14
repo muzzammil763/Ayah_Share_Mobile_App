@@ -1,5 +1,6 @@
 import 'package:ayahShare/main_screen/widgets/gradient_picker.dart';
 import 'package:ayahShare/services/quran_services.dart';
+import 'package:ayahShare/services/surahs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -106,54 +107,49 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(
-                  child: DropdownButton<int>(
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_sharp,
-                      size: 28,
-                    ),
-                    underline: const SizedBox(),
-                    value: surah,
-                    items: List.generate(
-                      114,
-                      (index) => DropdownMenuItem(
-                        value: index + 1,
-                        child: Text('Surah ${index + 1}'),
-                      ),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        surah = value!;
-                        ayah = 1; // Reset ayah when surah changes
-                        fetchSurahAyahCount(); // Fetch total ayahs in the new surah
-                        fetchAyah();
-                      });
-                    },
+                DropdownButton<int>(
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down_sharp,
+                    size: 28,
                   ),
+                  underline: const SizedBox(),
+                  value: surah,
+                  items: surahList.map((surah) {
+                    return DropdownMenuItem(
+                      value: surah.number,
+                      child: Text('${surah.number} - ${surah.englishName}'),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      surah = value!;
+                      ayah = 1; // Reset ayah when surah changes
+                      fetchSurahAyahCount(); // Fetch total ayahs in the new surah
+                      fetchAyah();
+                    });
+                  },
                 ),
                 const SizedBox(width: 20),
-                Center(
-                  child: DropdownButton<int>(
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_sharp,
-                      size: 28,
-                    ),
-                    underline: const SizedBox(),
-                    value: ayah,
-                    items: List.generate(
-                      totalAyahs,
-                      (index) => DropdownMenuItem(
-                        value: index + 1,
-                        child: Text('Ayah ${index + 1}'),
-                      ),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        ayah = value!;
-                        fetchAyah();
-                      });
-                    },
+                DropdownButton<int>(
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down_sharp,
+                    size: 28,
                   ),
+                  underline: const SizedBox(),
+                  value: ayah,
+                  items: List.generate(
+                    totalAyahs,
+                    (index) => DropdownMenuItem(
+                      value: index + 1,
+                      child: Text('Ayah ${index + 1}'),
+                    ),
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      ayah = value!;
+                      fetchAyah();
+                    });
+                  },
                 ),
               ],
             ),
