@@ -84,8 +84,11 @@ class AyahShareScreenState extends State<AyahShareScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        surfaceTintColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
+        scrolledUnderElevation: 0,
+        elevation: 0,
         title: const Text(
           'AyahShare',
           style: TextStyle(
@@ -94,10 +97,10 @@ class AyahShareScreenState extends State<AyahShareScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             // Surah and Ayah selection
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -192,14 +195,8 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                 });
               },
             ),
-            const SizedBox(height: 8),
-            const Text(
-              'Text Color',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
+
             OutlinedButton(
               onPressed: () {
                 showDialog(
@@ -301,8 +298,15 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             // Share button
             OutlinedButton(
               onPressed: () {},
-              child: const Text('Share Image'),
+              child: Text(
+                'Share Image',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.blueAccent.shade700,
+                ),
+              ),
             ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
