@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "45040323119",
+    "project_id": "quranayahshare",
+    "storage_bucket": "quranayahshare.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45040323119:android:d44977b915eb5f347554da",
+        "android_client_info": {
+          "package_name": "com.app.ayahshare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-iPwyEmzJ35Q-XrAUeCeMZhAidcaGGD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
