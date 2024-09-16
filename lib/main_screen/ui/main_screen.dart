@@ -98,7 +98,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             // Surah and Ayah selection
             const SizedBox(height: 16),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 DropdownButton<int>(
                   icon: const Icon(
@@ -151,33 +151,29 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: DropdownButton<String>(
-                      underline: const SizedBox(),
-                      icon: const Icon(Icons.keyboard_arrow_down_sharp),
-                      isExpanded: true,
-                      value: selectedTranslation,
-                      items: translations.map((translation) {
-                        return DropdownMenuItem(
-                          value: translation.identifier,
-                          child: Text(
-                            '${translation.language.toUpperCase()} - ${translation.englishName}',
-                            overflow: TextOverflow
-                                .ellipsis, // This ensures text does not overflow
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedTranslation = value!;
-                          fetchAyah();
-                        });
-                      },
-                    ),
-                  ),
-                ],
+              child: Expanded(
+                child: DropdownButton<String>(
+                  underline: const SizedBox(),
+                  icon: const Icon(Icons.keyboard_arrow_down_sharp),
+                  isExpanded: true,
+                  value: selectedTranslation,
+                  items: translations.map((translation) {
+                    return DropdownMenuItem(
+                      value: translation.identifier,
+                      child: Text(
+                        '${translation.language.toUpperCase()} - ${translation.englishName}',
+                        overflow: TextOverflow
+                            .ellipsis, // This ensures text does not overflow
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedTranslation = value!;
+                      fetchAyah();
+                    });
+                  },
+                ),
               ),
             ),
 
