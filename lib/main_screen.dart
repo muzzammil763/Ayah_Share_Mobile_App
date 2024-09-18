@@ -1,6 +1,6 @@
-import 'package:ayahShare/main_screen/widgets/gradient_picker.dart';
-import 'package:ayahShare/services/quran_services.dart';
-import 'package:ayahShare/services/surahs.dart';
+import 'package:ayahShare/gradient_picker.dart';
+import 'package:ayahShare/quran_services.dart';
+import 'package:ayahShare/surahs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
