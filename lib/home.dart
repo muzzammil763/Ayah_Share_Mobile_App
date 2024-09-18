@@ -1,5 +1,5 @@
-import 'package:ayahShare/gradient_picker.dart';
-import 'package:ayahShare/quran_services.dart';
+import 'package:ayahShare/picker.dart';
+import 'package:ayahShare/services.dart';
 import 'package:ayahShare/surahs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -151,29 +151,27 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Expanded(
-                child: DropdownButton<String>(
-                  underline: const SizedBox(),
-                  icon: const Icon(Icons.keyboard_arrow_down_sharp),
-                  isExpanded: true,
-                  value: selectedTranslation,
-                  items: translations.map((translation) {
-                    return DropdownMenuItem(
-                      value: translation.identifier,
-                      child: Text(
-                        '${translation.language.toUpperCase()} - ${translation.englishName}',
-                        overflow: TextOverflow
-                            .ellipsis, // This ensures text does not overflow
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTranslation = value!;
-                      fetchAyah();
-                    });
-                  },
-                ),
+              child: DropdownButton<String>(
+                underline: const SizedBox(),
+                icon: const Icon(Icons.keyboard_arrow_down_sharp),
+                isExpanded: true,
+                value: selectedTranslation,
+                items: translations.map((translation) {
+                  return DropdownMenuItem(
+                    value: translation.identifier,
+                    child: Text(
+                      '${translation.language.toUpperCase()} - ${translation.englishName}',
+                      overflow: TextOverflow
+                          .ellipsis, // This ensures text does not overflow
+                    ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedTranslation = value!;
+                    fetchAyah();
+                  });
+                },
               ),
             ),
 
