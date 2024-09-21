@@ -1,7 +1,7 @@
-import 'package:ayahShare/picker.dart';
-import 'package:ayahShare/services.dart';
-import 'package:ayahShare/surahs.dart';
-import 'package:ayahShare/translaters.dart';
+import 'package:ayah_share/picker.dart';
+import 'package:ayah_share/services.dart';
+import 'package:ayah_share/surahs.dart';
+import 'package:ayah_share/translaters.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';

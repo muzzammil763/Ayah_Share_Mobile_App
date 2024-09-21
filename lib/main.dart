@@ -1,4 +1,4 @@
-import 'package:ayahShare/home.dart';
+import 'package:ayah_share/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
