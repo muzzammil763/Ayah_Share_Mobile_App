@@ -1,6 +1,7 @@
 import 'package:ayahShare/picker.dart';
 import 'package:ayahShare/services.dart';
 import 'package:ayahShare/surahs.dart';
+import 'package:ayahShare/translaters.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -26,28 +27,14 @@ class AyahShareScreenState extends State<AyahShareScreen> {
   double translationFontSize = 16;
   Color textColor = Colors.white;
   List<Color> gradientColors = [Colors.blue, Colors.purple];
-  List<Translation> translations = [];
-  String selectedTranslation = 'en.sahih';
+  List<Translator> translations = translatorsList;
+  String selectedTranslation = 'ur.jalandhry';
 
   @override
   void initState() {
     super.initState();
-    fetchTranslations();
     fetchAyah();
     fetchSurahAyahCount();
-  }
-
-  void fetchTranslations() async {
-    try {
-      final result = await _quranService.fetchTranslations();
-      setState(() {
-        translations = result;
-      });
-    } catch (error) {
-      if (kDebugMode) {
-        print('Error fetching translations: $error');
-      }
-    }
   }
 
   void fetchAyah() async {
@@ -156,13 +143,12 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                 icon: const Icon(Icons.keyboard_arrow_down_sharp),
                 isExpanded: true,
                 value: selectedTranslation,
-                items: translations.map((translation) {
+                items: translations.map((translator) {
                   return DropdownMenuItem(
-                    value: translation.identifier,
+                    value: translator.identifier,
                     child: Text(
-                      '${translation.language.toUpperCase()} - ${translation.englishName}',
-                      overflow: TextOverflow
-                          .ellipsis, // This ensures text does not overflow
+                      '${translator.language.toUpperCase()} - ${translator.englishName}',
+                      overflow: TextOverflow.ellipsis,
                     ),
                   );
                 }).toList(),
