@@ -22,11 +22,11 @@ class AyahShareScreenState extends State<AyahShareScreen> {
   String translationText = '';
   int surah = 1;
   int ayah = 1;
-  int totalAyahs = 7; // Start with the first surah's ayah count
-  double fontSize = 20;
+  int totalAyahs = 7;
+  double fontSize = 25;
   double translationFontSize = 16;
   Color textColor = Colors.white;
-  List<Color> gradientColors = [Colors.blue, Colors.purple];
+  List<Color> gradientColors = [Colors.blue, Colors.purple.shade900];
   List<Translator> translations = translatorsList;
   String selectedTranslation = 'ur.jalandhry';
 

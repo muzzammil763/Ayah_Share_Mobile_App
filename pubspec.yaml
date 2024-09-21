@@ -36,3 +36,7 @@ flutter:
     - family: Alvi
       fonts:
         - asset: assets/fonts/alvi.ttf
+
+    - family: Noorehuda
+      fonts:
+        - asset: assets/fonts/noorehuda.ttf
