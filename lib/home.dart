@@ -60,7 +60,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
 
   void changeGradientColors(List<Color> colors) {
     setState(() {
-      gradientColors = List.from(colors); // Ensure a new list is assigned
+      gradientColors = List.from(colors);
     });
   }
 
@@ -82,69 +82,77 @@ class AyahShareScreenState extends State<AyahShareScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Surah and Ayah selection
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DropdownButton<int>(
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down_sharp,
-                    size: 28,
-                  ),
-                  underline: const SizedBox(),
-                  value: surah,
-                  items: surahList.map((surah) {
-                    return DropdownMenuItem(
-                      value: surah.number,
-                      child: Text('${surah.number} - ${surah.englishName}'),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      surah = value!;
-                      ayah = 1; // Reset ayah when surah changes
-                      fetchSurahAyahCount(); // Fetch total ayahs in the new surah
-                      fetchAyah();
-                    });
-                  },
-                ),
-                const SizedBox(width: 20),
-                DropdownButton<int>(
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down_sharp,
-                    size: 28,
-                  ),
-                  underline: const SizedBox(),
-                  value: ayah,
-                  items: List.generate(
-                    totalAyahs,
-                    (index) => DropdownMenuItem(
-                      value: index + 1,
-                      child: Text('Ayah ${index + 1}'),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      ayah = value!;
-                      fetchAyah();
-                    });
-                  },
-                ),
-              ],
-            ),
-
-            // Translation selection
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: DropdownButton<String>(
+              child: DropdownButton<int>(
+                isExpanded: true,
+                menuWidth: MediaQuery.of(context).size.width * 0.8,
+                iconSize: 30,
+                alignment: Alignment.center,
                 underline: const SizedBox(),
                 icon: const Icon(Icons.keyboard_arrow_down_sharp),
+                value: surah,
+                items: surahList.map((surah) {
+                  return DropdownMenuItem<int>(
+                    value: surah.number,
+                    child: Text(
+                        '${surah.number} - ${surah.englishName} ( ${surah.name} )'),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    surah = value!;
+                    ayah = 1;
+                    fetchSurahAyahCount();
+                    fetchAyah();
+                  });
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: DropdownButton<int>(
                 isExpanded: true,
+                menuWidth: 150,
+                iconSize: 30,
+                alignment: Alignment.center,
+                underline: const SizedBox(),
+                icon: const Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: Icon(Icons.keyboard_arrow_down_sharp),
+                ),
+                value: ayah,
+                items: List.generate(
+                  totalAyahs,
+                  (index) => DropdownMenuItem<int>(
+                    value: index + 1,
+                    child: Text('Ayah ${index + 1}'),
+                  ),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    ayah = value!;
+                    fetchAyah();
+                  });
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: DropdownButton<String>(
+                isExpanded: true,
+                menuWidth: MediaQuery.of(context).size.width * 0.8,
+                iconSize: 30,
+                alignment: Alignment.center,
+                underline: const SizedBox(),
+                icon: const Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: Icon(Icons.keyboard_arrow_down_sharp),
+                ),
                 value: selectedTranslation,
                 items: translations.map((translator) {
-                  return DropdownMenuItem(
+                  return DropdownMenuItem<String>(
                     value: translator.identifier,
                     child: Text(
                       '${translator.language.toUpperCase()} - ${translator.englishName}',
@@ -160,8 +168,6 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                 },
               ),
             ),
-
-            // Font Size and Color options
             const SizedBox(height: 12),
             const Text(
               'Ayah Font Size',
@@ -169,7 +175,6 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
             Slider(
               activeColor: Colors.blueAccent.shade700,
               value: fontSize,
@@ -181,14 +186,12 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                 });
               },
             ),
-            const SizedBox(height: 8),
             const Text(
               'Translation Font Size',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
             Slider(
               activeColor: Colors.blueAccent.shade700,
               value: translationFontSize,
@@ -201,72 +204,76 @@ class AyahShareScreenState extends State<AyahShareScreen> {
               },
             ),
             const SizedBox(height: 12),
-
-            OutlinedButton(
-              onPressed: () {
-                showDialog(
-                  barrierColor: Colors.transparent,
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: Colors.transparent,
-                    contentPadding: EdgeInsets.zero,
-                    content: SingleChildScrollView(
-                      child: ColorPicker(
-                        displayThumbColor: true,
-                        enableAlpha: false,
-                        showLabel: false,
-                        pickerAreaHeightPercent: 0.5,
-                        pickerColor: textColor,
-                        onColorChanged: (color) {
-                          setState(
-                            () {
-                              textColor = color;
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    showDialog(
+                      barrierColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: Colors.transparent,
+                        contentPadding: EdgeInsets.zero,
+                        content: SingleChildScrollView(
+                          child: ColorPicker(
+                            displayThumbColor: true,
+                            enableAlpha: false,
+                            showLabel: false,
+                            pickerAreaHeightPercent: 0.5,
+                            pickerColor: textColor,
+                            onColorChanged: (color) {
+                              setState(
+                                () {
+                                  textColor = color;
+                                },
+                              );
                             },
-                          );
-                        },
+                          ),
+                        ),
                       ),
+                    );
+                  },
+                  child: Text(
+                    'Text Color',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blueAccent.shade700,
                     ),
                   ),
-                );
-              },
-              child: Text(
-                'Select Text Color',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.blueAccent.shade700,
                 ),
-              ),
+                const SizedBox(width: 12),
+                OutlinedButton(
+                  onPressed: () {
+                    showDialog(
+                      useRootNavigator: true,
+                      barrierColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: Colors.transparent,
+                        contentPadding: EdgeInsets.zero,
+                        content: MultipleChoiceGradientPicker(
+                          currentColors: gradientColors,
+                          onColorChanged: (colors) =>
+                              changeGradientColors(colors),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Gradient Colors',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blueAccent.shade700,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 10),
 
-            // Gradient color picker
-            OutlinedButton(
-              onPressed: () {
-                showDialog(
-                  useRootNavigator: true,
-                  barrierColor: Colors.transparent,
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: Colors.transparent,
-                    contentPadding: EdgeInsets.zero,
-                    content: MultipleChoiceGradientPicker(
-                      currentColors: gradientColors,
-                      onColorChanged: (colors) => changeGradientColors(colors),
-                    ),
-                  ),
-                );
-              },
-              child: Text(
-                'Select Gradient Colors',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.blueAccent.shade700,
-                ),
-              ),
-            ),
-
             const SizedBox(height: 20),
-
             // Screenshot area
             Screenshot(
               controller: screenshotController,
