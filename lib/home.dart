@@ -271,9 +271,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             // Screenshot area
             Screenshot(
               controller: screenshotController,
@@ -294,6 +292,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                       Text(
                         arabicText,
                         style: TextStyle(
+                          fontFamily: 'IndoPak',
                           fontSize: fontSize,
                           color: textColor,
                         ),
@@ -303,6 +302,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                       Text(
                         translationText,
                         style: TextStyle(
+                          fontFamily: 'Alvi',
                           fontSize: translationFontSize,
                           color: textColor,
                         ),
