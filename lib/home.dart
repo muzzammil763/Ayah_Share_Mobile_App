@@ -23,8 +23,8 @@ class AyahShareScreenState extends State<AyahShareScreen> {
   int surah = 1;
   int ayah = 1;
   int totalAyahs = 7;
-  double fontSize = 25;
-  double translationFontSize = 16;
+  double fontSize = 35;
+  double translationFontSize = 20;
   Color textColor = Colors.white;
   List<Color> gradientColors = [Colors.blue, Colors.purple.shade900];
   List<Translator> translations = translatorsList;
@@ -298,7 +298,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 12),
                       Text(
                         translationText,
                         style: TextStyle(
