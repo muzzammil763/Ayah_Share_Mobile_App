@@ -133,7 +133,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: DropdownButton<int>(
                 isExpanded: true,
-                menuWidth: MediaQuery.of(context).size.width * 0.8,
+                menuWidth: MediaQuery.of(context).size.width * 0.7,
                 iconSize: 30,
                 alignment: Alignment.center,
                 underline: const SizedBox(),
@@ -160,7 +160,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: DropdownButton<int>(
                 isExpanded: true,
-                menuWidth: 150,
+                menuWidth: MediaQuery.of(context).size.width * 0.7,
                 iconSize: 30,
                 alignment: Alignment.center,
                 underline: const SizedBox(),
@@ -188,7 +188,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: DropdownButton<String>(
                 isExpanded: true,
-                menuWidth: MediaQuery.of(context).size.width * 0.8,
+                menuWidth: MediaQuery.of(context).size.width * 0.7,
                 iconSize: 30,
                 alignment: Alignment.center,
                 underline: const SizedBox(),
