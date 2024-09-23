@@ -35,6 +35,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
   List<Color> gradientColors = [Colors.blue, Colors.purple.shade900];
   List<Translator> translations = translatorsList;
   String selectedTranslation = 'ur.jalandhry';
+  double aspectRatio = 1;
 
   @override
   void initState() {
@@ -317,12 +318,29 @@ class AyahShareScreenState extends State<AyahShareScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            // Screenshot area
+            const SizedBox(height: 12),
+            ToggleButtons(
+              color: Colors.blueAccent.shade700,
+              borderRadius: BorderRadius.circular(8),
+              fillColor: Colors.white,
+              selectedBorderColor: Colors.blueAccent.shade700,
+              borderWidth: 1.5,
+              onPressed: (int index) {
+                setState(() {
+                  aspectRatio = index == 0 ? 1 : 9 / 16;
+                });
+              },
+              isSelected: [aspectRatio == 1, aspectRatio == 9 / 16],
+              children: const <Widget>[
+                Icon(Icons.crop_square),
+                Icon(Icons.crop_16_9),
+              ],
+            ),
+            const SizedBox(height: 16),
             Screenshot(
               controller: screenshotController,
               child: AspectRatio(
-                aspectRatio: 1,
+                aspectRatio: aspectRatio,
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
