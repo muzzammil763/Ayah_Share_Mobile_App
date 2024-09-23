@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ayah_share/picker.dart';
 import 'package:ayah_share/services.dart';
 import 'package:ayah_share/surahs.dart';
@@ -5,7 +7,9 @@ import 'package:ayah_share/translaters.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AyahShareScreen extends StatefulWidget {
@@ -86,6 +90,24 @@ class AyahShareScreenState extends State<AyahShareScreen> {
     setState(() {
       gradientColors = List.from(colors);
     });
+  }
+
+  void shareScreenshot() async {
+    try {
+      final image = await screenshotController.capture();
+      if (image != null) {
+        final directory = await getApplicationDocumentsDirectory();
+        final imagePath = File('${directory.path}/screenshot.png');
+        await imagePath.writeAsBytes(image);
+
+        await Share.shareXFiles([XFile(imagePath.path)],
+            text: 'Check out this Ayah!');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error sharing screenshot: $e');
+      }
+    }
   }
 
   @override
@@ -341,7 +363,7 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             const SizedBox(height: 20),
             // Share button
             OutlinedButton(
-              onPressed: () {},
+              onPressed: shareScreenshot, // Call the shareScreenshot method
               child: Text(
                 'Share Image',
                 style: TextStyle(
