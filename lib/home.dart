@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ayah_share/about.dart';
 import 'package:ayah_share/picker.dart';
 import 'package:ayah_share/services.dart';
 import 'package:ayah_share/surahs.dart';
@@ -125,6 +126,28 @@ class AyahShareScreenState extends State<AyahShareScreen> {
             fontWeight: FontWeight.w500,
           ),
         ),
+        actions: [
+          PopupMenuButton(
+            color: Colors.white,
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  height: 40,
+                  child: const Text('About'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const About(),
+                      ),
+                    );
+                  },
+                ),
+              ];
+            },
+            onSelected: (value) {},
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
